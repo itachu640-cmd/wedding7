@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свадебное Приглашение — Королевский Сатин</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;500&display=swap');
+
+        :root {
+            /* Имитация складок дорогой бордовой ткани через градиенты */
+            --bg-fabric: linear-gradient(105deg, #4a0010 0%, #2b0008 30%, #5e0018 55%, #1f0005 85%, #3b000d 100%);
+            --card-bg: rgba(18, 2, 6, 0.85);
+            --gold-light: #f5e2b3;
+            --gold-dark: #b89742;
+            --text-muted: #c7a3a9;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-fabric);
+            color: var(--gold-light);
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; overflow: hidden; position: relative;
+        }
+
+        /* Контейнер для падающей золотой пыльцы */
+        #bg-particles {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+
+        /* Золотые микро-искры */
+        .gold-dust {
+            position: absolute; color: var(--gold-dark);
+            user-select: none; opacity: 0; top: -20px;
+            animation: fallDust linear infinite;
+        }
+
+        @keyframes fallDust {
+            0% { transform: translateY(0) translateX(0) scale(0.5); opacity: 0; }
+            30% { opacity: 0.7; }
+            70% { opacity: 0.7; }
+            100% { transform: translateY(105vh) translateX(40px) scale(1.2); opacity: 0; }
+        }
+
+        /* Экраны */
+        .screen {
+            width: 100%; max-width: 375px; height: auto;
+            padding: 15px; box-sizing: border-box;
+            display: flex; flex-direction: column; justify-content: center;
+            position: relative; z-index: 2; transition: all 0.6s ease-in-out;
+        }
+        .hidden { display: none !important; }
+        .fade-out { opacity: 0; transform: scale(0.95); filter: blur(4px); }
+        .fade-in { animation: royalReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        @keyframes royalReveal {
+            from { opacity: 0; transform: scale(1.05); filter: blur(5px); }
+            to { opacity: 1; transform: scale(1); filter: blur(0); }
+        }
+
+        /* Кнопка с эффектом металлического золота */
+        .main-btn {
+            background: linear-gradient(135deg, #f5e2b3 0%, #b89742 50%, #dbbf73 100%);
+            border: none; color: #1f0005; padding: 12px 35px; font-size: 0.85rem;
+            font-weight: 600; border-radius: 0; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); transition: all 0.3s;
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+        .main-btn:hover {
+            box-shadow: 0 0 20px rgba(219, 191, 115, 0.6);
+            letter-spacing: 3px;
+        }
+
+        /* Премиальная карточка с тонкими двойными рамками */
+        .card-container {
+            background: var(--card-bg); padding: 30px 20px;
+            text-align: center; width: 100%; box-sizing: border-box;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--gold-dark);
+            position: relative;
+        }
+        
+        /* Внутренняя тонкая золотая рамка */
+        .card-container::after {
+            content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
+            border: 1px solid rgba(184, 151, 66, 0.3); pointer-events: none;
+        }
+        
+        .names { 
+            font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 400;
+            color: #fff; margin: 5px 0; letter-spacing: 1px;
+            background: linear-gradient(to right, #f5e2b3, #dbbf73, #f5e2b3);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* Компактный строгий таймер */
+        .countdown { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
+        .time-block {
+            background: rgba(0, 0, 0, 0.3); width: 55px; padding: 6px 0;
+            border: 1px solid rgba(184, 151, 66, 0.2);
+        }
+        .time-block span { font-size: 1.3rem; font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--gold-light); display: block; }
+        .time-block label { font-size: 0.5rem; color: var(--text-muted); letter-spacing: 1px; display: block; margin-top: 1px; }
+        .time-separator { align-self: center; font-size: 1rem; color: var(--gold-dark); opacity: 0.5; }
+
+        /* Сетка деталей */
+        .info-box { background: rgba(255, 255, 255, 0.02); padding: 10px; border: 1px solid rgba(184, 151, 66, 0.1); }
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+        h3 { font-family: 'Cormorant Garamond', serif; font-size: 0.8rem; color: var(--gold-dark); letter-spacing: 2px; margin: 0 0 3px 0; text-transform: uppercase; font-weight: 600; }
+        p { margin: 0; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+    <div id="bg-particles"></div>
+
+    <div id="envelope-screen" class="screen" style="text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 15px; color: var(--gold-dark);">👑</div>
+        <p style="letter-spacing: 4px; color: var(--text-muted); font-size: 0.75rem; margin-bottom: 5px;">ПРИГЛАШЕНИЕ ДЛЯ</p>
+        <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 400; margin-top: 0; color: #fff; margin-bottom: 40px; letter-spacing: 1px;">ДОРОГОГО ГОСТЯ</h1>
+        <button id="open-btn" class="main-btn">Открыть</button>
+    </div>
+
+    <div id="info-screen" class="screen hidden">
+        <div class="card-container">
+            <p style="font-size: 0.65rem; letter-spacing: 4px; color: var(--gold-dark); margin-top: 0; text-transform: uppercase; font-weight: 600;">Свадебное Приглашение</p>
+            <p style="margin: 3px 0; font-size: 0.9rem; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--text-muted);">Дорогой Гость,</p>
+            <h2 class="names">Влад & Диана</h2>
+            <p style="font-size: 0.85rem; line-height: 1.5; color: #fce4ec; padding: 0 5px; font-weight: 300;">Разделите с нами торжество любви и верности в день начала нашей совместной истории</p>
+            
+            <div style="color: var(--gold-dark); margin: 12px 0; font-size: 0.7rem; letter-spacing: 6px;">⚜  ⚜  ⚜</div>
+
+            <section>
+                <div class="countdown">
+                    <div class="time-block"><span id="days">00</span><label>ДНЕЙ</label></div>
+                    <div class="time-separator">:</div>
+                    <div class="time-block"><span id="hours">00</span><label>ЧАСОВ</label></div>
+                    <div class="time-separator">:</div>
+                    <div class="time-block"><span id="minutes">00</span><label>МИНУТ</label></div>
+                    <div class="time-separator">:</div>
+                    <div class="time-block"><span id="seconds">00</span><label>СЕКУНД</label></div>
+                </div>
+            </section>
+
+            <div class="details-grid">
+                <div class="info-box">
+                    <h3>ДАТА</h3>
+                    <p style="font-weight: 600; color: #fff; font-size: 0.95rem;">20 Сентября</p>
+                    <p style="font-size: 0.75rem; color: var(--text-muted);">2027 года</p>
+                </div>
+                <div class="info-box">
+                    <h3>ВРЕМЯ</h3>
+                    <p style="font-weight: 500;">Никах — 14:00</p>
+                    <p style="font-weight: 500; margin-top: 3px;">Банкет — 18:00</p>
+                </div>
+            </div>
+
+            <section class="info-box">
+                <h3>МЕСТО ТОРЖЕСТВА</h3>
+                <p style="font-weight: 600; color: #fff; font-size: 0.95rem; margin-bottom: 2px;">Зал «Жемчужина»</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">ул. Навои 12, Ташкент</p>
+            </section>
+
+            <p style="margin-top: 20px; font-size: 0.8rem; color: var(--gold-dark); letter-spacing: 1px; font-style: italic;">Ваше присутствие — великая честь</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Логика экранов
+            document.getElementById("open-btn").addEventListener("click", () => {
+                const env = document.getElementById("envelope-screen");
+                const info = document.getElementById("info-screen");
+                env.classList.add("fade-out");
+                setTimeout(() => {
+                    env.classList.add("hidden");
+                    info.classList.remove("hidden");
+                    info.classList.add("fade-in");
+                }, 500);
+            });
+
+            // Таймер обратного отсчета
+            const targetDate = new Date("September 20, 2027 14:00:00").getTime();
+            setInterval(() => {
+                const now = new Date().getTime();
+                const diff = targetDate - now;
+                if (diff < 0) return;
+                document.getElementById("days").textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+                document.getElementById("hours").textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+                document.getElementById("minutes").textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                document.getElementById("seconds").textContent = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+            }, 1000);
+
+            // Генератор золотой пыльцы
+            const container = document.getElementById("bg-particles");
+            const dustElements = ['·', '✨', '•', '·'];
+
+            function createDust() {
+                const dust = document.createElement("div");
+                dust.classList.add("gold-dust");
+                dust.innerText = dustElements[Math.floor(Math.random() * dustElements.length)];
+                
+                dust.style.left = Math.random() * 100 + "vw";
+                dust.style.fontSize = Math.random() * (20 - 10) + 10 + "px";
+                dust.style.animationDuration = Math.random() * (10 - 6) + 6 + "s";
+                
+                container.appendChild(dust);
+                setTimeout(() => { dust.remove(); }, 10000);
+            }
+            setInterval(createDust, 400);
+        });
+    </script>
+</body>
+</html>
